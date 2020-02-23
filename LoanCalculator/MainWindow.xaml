@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoanCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Кредитний калькулятор" Height="308" Width="476.263">
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="loanTextBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" Text="10000" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="LoanTextBox_PreviewTextInput" Grid.Column="1"/>
+        <Label Content="Розмір кредиту, грн" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="130" Grid.Column="1" Height="26"/>
+        <Label Content="Річні нарахування, %" HorizontalAlignment="Left" Margin="326,10,0,0" VerticalAlignment="Top" Width="130" Grid.Column="1" Height="26" RenderTransformOrigin="0.554,0.5"/>
+        <Label Content="Період кредитування" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="130" Grid.Column="1" Height="26"/>
+        <TextBox x:Name="annualAccrualsTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="326,41,0,0" TextWrapping="Wrap" Text="18" VerticalAlignment="Top" Width="120" PreviewTextInput="AnnualAccrualsTextBox_PreviewTextInput" RenderTransformOrigin="0.792,0.261"/>
+        <TextBox x:Name="creditingPeriodTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="12" VerticalAlignment="Top" Width="120" PreviewTextInput="CreditingPeriodTextBox_PreviewTextInput"/>
+        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="100" Margin="10,128,0,0">
+            <RadioButton Name ="monthsRadio" Content="Місяці" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
+            <RadioButton Name ="yearsRadio" Content="Роки" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="87" RenderTransformOrigin="1.816,2.533"/>
+        </StackPanel>
+        <Button x:Name="btnCalculate" Grid.ColumnSpan="2" Content="Розрахувати" HorizontalAlignment="Left" Margin="326,75,0,0" VerticalAlignment="Top" Width="130" Click="BtnCalculate_Click"/>
+        <Button x:Name="btnExport" Grid.ColumnSpan="2" Content="Експортувати у Word" HorizontalAlignment="Left" Margin="326,125,0,0" VerticalAlignment="Top" Width="130" Click="BtnExport_Click"/>
+        <TextBox x:Name="txtSummary" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="68" Margin="10,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="446" IsEnabled="False"/>
+        <Label Grid.ColumnSpan="2" Content="Підсумок" HorizontalAlignment="Left" Margin="21,173,0,0" VerticalAlignment="Top"/>
+        <Label Grid.ColumnSpan="2" Content="Початковий внесок, грн" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="downPaymentTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="172,41,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>
