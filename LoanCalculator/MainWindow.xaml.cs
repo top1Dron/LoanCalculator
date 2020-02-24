@@ -1,21 +1,15 @@
-﻿using Microsoft.Office.Interop.Word;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
 
 namespace LoanCalculator
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Расчет кредитной ставки
     /// </summary>
-    public partial class MainWindow : System.Windows.Window
+    public partial class MainWindow : Window
     {
-        private decimal loanAmount;
-        private decimal downPayment;
-        private decimal annualInterestRate;
-        private int loanPeriod;
-        private decimal totalAmountRepaid;
-        private decimal totalInterest;
+        public ICalculator LoanCalculator { get; set; }
 
         public MainWindow()
         {
@@ -61,33 +55,23 @@ namespace LoanCalculator
                 return;
             }
 
+            decimal downPayment;
+            int monthMultiplier = 1;
             bool tryDownPayment = decimal.TryParse(downPaymentTextBox.Text, out downPayment);
             if (!tryDownPayment)
             {
                 downPayment = 0.0m;
             }
-            loanAmount = Convert.ToDecimal(loanTextBox.Text) - downPayment;
-            annualInterestRate = Convert.ToDecimal(annualAccrualsTextBox.Text);
-            loanPeriod = Convert.ToInt32(creditingPeriodTextBox.Text);
             if ((bool)yearsRadio.IsChecked)
             {
-                loanPeriod *= 12;
+                monthMultiplier *= 12;
             }
 
-
-            decimal interestRate = (annualInterestRate / 100) / 12;
-
-            decimal paymentAmount = (interestRate * loanAmount);
-            double divPaymentAmount = 1 - (Math.Pow(1 + (Convert.ToDouble(interestRate)), -(Convert.ToDouble(loanPeriod))));
-            paymentAmount = paymentAmount / Convert.ToDecimal(divPaymentAmount);
-            paymentAmount = Math.Round(paymentAmount, 2);
-
-            totalAmountRepaid = paymentAmount * 12 + downPayment;
-            totalInterest = totalAmountRepaid - loanAmount;
-
-            txtSummary.Text += "Загальна кількість платежів - " + (loanPeriod).ToString() + ".\r\nЩомісячний платіж становить - " + paymentAmount.ToString("N") +
-                "\r\nПовна сума виплати становить - " + totalAmountRepaid.ToString("N") + "." +
-                "\r\nЗагальна сума відсотків, сплачених за період позики, становить - " + totalInterest.ToString("N");
+            this.LoanCalculator = new Calculator(downPayment, Convert.ToDecimal(loanTextBox.Text),
+                Convert.ToDecimal(annualAccrualsTextBox.Text),
+                Convert.ToInt32(creditingPeriodTextBox.Text),
+                monthMultiplier);
+            txtSummary.Text += this.LoanCalculator.Calculate();
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -97,28 +81,10 @@ namespace LoanCalculator
                 MessageBox.Show("Спочатку прорахуйте кредитну ставку.");
                 return;
             }
-
-            object oMissing = System.Reflection.Missing.Value;
-            object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
-
-            //Start Word and create a new document.
-            _Application oWord;
-            _Document oDoc;
-            oWord = new Microsoft.Office.Interop.Word.Application();
-            oWord.Visible = true;
-            oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
-            ref oMissing, ref oMissing);
-
-            //Insert a paragraph at the beginning of the document.
-            Microsoft.Office.Interop.Word.Paragraph oPara1;
-            oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara1.Range.Text = "Розмір кредиту - " + this.loanAmount.ToString() + " грн.\n" +
-                "Перший внесок - " + this.downPayment.ToString() + " грн.\n" +
-                "Річні нарахування - " + this.annualInterestRate.ToString() + " %\n" +
-                txtSummary.Text;
-            oPara1.Range.Font.Bold = 1;
-            oPara1.Format.SpaceAfter = 24;    //24 pt spacing after paragraph.
-            oPara1.Range.InsertParagraphAfter();
+            else
+            {
+                this.LoanCalculator.WordExport(System.Reflection.Missing.Value, "\\endofdoc");
+            }
         }
     }
 }
