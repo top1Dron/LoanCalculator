@@ -89,23 +89,58 @@ namespace LoanCalculator
                 MessageBox.Show("Поле \"Річні нарахування\" не може бути порожнім", "Помилка");
                 return;
             }
-
-            decimal downPayment;
-            int monthMultiplier = 1;
-            bool tryDownPayment = decimal.TryParse(downPaymentTextBox.Text, out downPayment);
-            if (!tryDownPayment)
+            if (downPaymentTextBox.Text == "")
             {
-                downPayment = 0.0m;
+                downPaymentTextBox.Text = "0";
             }
+            if (setAndComServiceTextBox.Text == "")
+            {
+                setAndComServiceTextBox.Text = "0";
+            }
+            if (loanProcessingTextBox.Text == "")
+            {
+                loanProcessingTextBox.Text = "0";
+            }
+            if (notarialServicesTextBox.Text == "")
+            {
+                notarialServicesTextBox.Text = "0";
+            }
+            if (loanServiceTextBox.Text == "")
+            {
+                loanServiceTextBox.Text = "0";
+            }
+            if (outpostCostTextBox.Text == "")
+            {
+                outpostCostTextBox.Text = "0";
+            }
+            if (outpostInsuranceTextBox.Text == "")
+            {
+                outpostInsuranceTextBox.Text = "0";
+            }
+            if (propertyValuationServiceTextBox.Text == "")
+            {
+                propertyValuationServiceTextBox.Text = "0";
+            }
+            if(Convert.ToDecimal(downPaymentTextBox.Text) > Convert.ToDecimal(loanTextBox.Text))
+            {
+                MessageBox.Show("Поле \"Початковий внесок\" не може мати значення більше, ніж поле \"Розмір кредиту\"", "Помилка");
+                return;
+            }
+
+            int monthMultiplier = 1;
             if ((bool)yearsRadio.IsChecked)
             {
                 monthMultiplier *= 12;
             }
 
-            this.LoanCalculator = new Calculator(downPayment, Convert.ToDecimal(loanTextBox.Text),
+            decimal outpostInsurance = Convert.ToDecimal(outpostCostTextBox.Text) * Convert.ToDecimal(outpostInsuranceTextBox.Text) / 100;
+
+            this.LoanCalculator = new Calculator(Convert.ToDecimal(downPaymentTextBox.Text), Convert.ToDecimal(loanTextBox.Text),
                 Convert.ToDecimal(annualAccrualsTextBox.Text),
                 Convert.ToInt32(creditingPeriodTextBox.Text),
-                monthMultiplier);
+                monthMultiplier, Convert.ToDecimal(setAndComServiceTextBox.Text),
+                Convert.ToDecimal(loanProcessingTextBox.Text), Convert.ToDecimal(notarialServicesTextBox.Text),
+                Convert.ToDecimal(loanServiceTextBox.Text), outpostInsurance, Convert.ToDecimal(propertyValuationServiceTextBox.Text));
             txtSummary.Text += this.LoanCalculator.Calculate();
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoanCalculator"
         mc:Ignorable="d"
-        Title="Кредитний калькулятор" Height="492.667" Width="685.597">
+        Title="Споживчий кредитний калькулятор" Height="560.001" Width="685.597">
     <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
@@ -26,7 +26,7 @@
         </StackPanel>
         <Button x:Name="btnCalculate" Grid.ColumnSpan="2" Content="Розрахувати" HorizontalAlignment="Left" Margin="478,283,0,0" VerticalAlignment="Top" Width="130" Click="BtnCalculate_Click"/>
         <Button x:Name="btnExport" Grid.ColumnSpan="2" Content="Експортувати у Word" HorizontalAlignment="Left" Margin="478,322,0,0" VerticalAlignment="Top" Width="130" Click="BtnExport_Click"/>
-        <TextBox x:Name="txtSummary" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="68" Margin="10,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="446" IsEnabled="False" RenderTransformOrigin="0.486,2.431"/>
+        <TextBox x:Name="txtSummary" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="138" Margin="10,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="598" IsEnabled="False" RenderTransformOrigin="0.486,2.431"/>
         <Label Grid.ColumnSpan="2" Content="Підсумок" HorizontalAlignment="Left" Margin="16,337,0,0" VerticalAlignment="Top"/>
         <Label Grid.ColumnSpan="2" Content="Початковий внесок, грн" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top"/>
         <Label Grid.ColumnSpan="2" Content="Послуги нотаріуса, грн" HorizontalAlignment="Left" Margin="172,128,0,0" VerticalAlignment="Top"/>

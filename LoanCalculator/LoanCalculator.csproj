@@ -82,8 +82,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Calculator.cs" />
-    <Compile Include="ICalculator.cs" />
+    <Compile Include="LoanCalculator\Calculator.cs" />
+    <Compile Include="LoanCalculator\ICalculator.cs" />
+    <Compile Include="LoanCalculator\MonthlyPayment.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
