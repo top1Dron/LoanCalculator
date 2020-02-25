@@ -31,6 +31,41 @@ namespace LoanCalculator
             e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
         }
 
+        private void SetAndComServiceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void LoanProcessingTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void NotarialServicesTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void OutpostCostTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void LoanServiceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void OutpostInsuranceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
+        private void PropertyValuationServiceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789 ,".IndexOf(e.Text) < 0;
+        }
+
         private void BtnCalculate_Click(object sender, RoutedEventArgs e)
         {
             CalculateLoanSchedule();
